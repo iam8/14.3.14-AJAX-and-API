@@ -7,6 +7,7 @@
 const $showsList = $("#showsList");
 const $episodesArea = $("#episodesArea");
 const $searchForm = $("#searchForm");
+const $episodesList = $("episodesList");
 
 
 /** Given a search term, search for tv shows that match that query.
@@ -118,5 +119,13 @@ async function getEpisodesOfShow(showId) {
 }
 
 
-/** Write a clear docstring for this function... */
-function populateEpisodes(episodes) {}
+/** Given an array of episodes info, add this info to the DOM (as a list, with one episode per list item). */
+function populateEpisodes(episodes) {
+
+    for (let ep of episodes) {
+        $episodesList.append("<li>",
+                             {text: `${ep.name} (season ${ep.season}, number ${ep.number})`});
+    }
+
+    $episodesArea.css("display", "block");
+}
