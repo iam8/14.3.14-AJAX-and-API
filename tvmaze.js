@@ -27,7 +27,7 @@ async function getShowsByTerm(searchTerm) {
     for (let show of response.data) {
 
         let image;
-        image = show.show.image ? show.show.image.medium : "https://static.tvmaze.com/images/api/tvm_api.png"
+        image = show.show.image ? show.show.image.medium : "https://tinyurl.com/tv-missing"
 
         const showInfo = {
             id: show.show.id,
@@ -42,6 +42,7 @@ async function getShowsByTerm(searchTerm) {
     return showsArr;
 }
 
+
 /** Given a list of shows, create markup for each and add to the DOM. */
 function populateShows(shows) {
     $showsList.empty();
@@ -52,7 +53,7 @@ function populateShows(shows) {
                 <div class="media">
                 <img
                     src=${show.image}
-                    alt="Bletchley Circle San Francisco"
+                    alt="Show image"
                     class="w-25 me-3">
                 <div class="media-body">
                     <h5 class="text-primary">${show.name}</h5>
