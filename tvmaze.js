@@ -16,11 +16,28 @@ const $searchForm = $("#searchForm");
  *    If no image URL is given by API, put in a default image URL.
  */
 async function getShowsByTerm(searchTerm) {
-    // ADD: make request to TVMaze search shows API.
+
+    const response = await axios.get("http://api.tvmaze.com/search/shows", {
+        params: {
+            q: searchTerm
+        }
+    })
 
     const showsArr = [];
-    
+    for (let show of response.data) {
 
+        let image;
+        image = show.show.image ? show.show.image.medium : "https://static.tvmaze.com/images/api/tvm_api.png"
+
+        const showInfo = {
+            id: show.show.id,
+            name: show.show.name,
+            summary: show.show.summary,
+            image
+        };
+
+        showsArr.push(showInfo);
+    }
 
     return showsArr;
 
@@ -43,7 +60,6 @@ async function getShowsByTerm(searchTerm) {
     // }
     // ];
 }
-
 
 /** Given a list of shows, create markup for each and add to the DOM. */
 function populateShows(shows) {
