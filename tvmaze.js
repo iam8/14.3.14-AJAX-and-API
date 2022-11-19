@@ -97,7 +97,25 @@ $searchForm.on("submit", async function (evt) {
 /** Given a show ID, get the show from API and return (promise) array of episodes:
  *  { id, name, season, number }
  */
-async function getEpisodesOfShow(id) {}
+async function getEpisodesOfShow(showId) {
+
+    const epResponse = await axios.get(`http://api.tvmaze.com/shows/${showId}/episodes`);
+
+    const epArray = [];
+    for (let ep of epResponse.data) {
+
+        const epInfo = {
+            id: ep.id,
+            name: ep.name,
+            season: ep.season,
+            number: ep.number
+        }
+
+        epArray.push(epInfo);
+    }
+
+    return epArray;
+}
 
 
 /** Write a clear docstring for this function... */
