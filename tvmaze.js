@@ -54,6 +54,8 @@ async function getShowsByTerm(searchTerm) {
 function populateShows(shows) {
     $showsList.empty();
 
+    // TODO: put an alert or a different message in DOM that no search results were found
+
     for (let show of shows) {
         const $show = $(
             `<div data-show-id="${show.id}" class="Show col-md-12 col-lg-6 mb-4">
