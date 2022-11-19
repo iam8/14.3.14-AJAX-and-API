@@ -27,7 +27,14 @@ async function getShowsByTerm(searchTerm) {
     for (let show of response.data) {
 
         let image;
-        image = show.show.image ? show.show.image.medium : "https://tinyurl.com/tv-missing"
+        // image = show.show.image ? show.show.image.medium : "https://tinyurl.com/tv-missing"
+
+        try {
+            image = show.show.image.medium;
+        } catch(err) {
+            console.log(err);
+            image = "https://tinyurl.com/tv-missing";
+        }
 
         const showInfo = {
             id: show.show.id,
