@@ -29,6 +29,7 @@ async function getShowsByTerm(searchTerm) {
         let image;
         // image = show.show.image ? show.show.image.medium : "https://tinyurl.com/tv-missing"
 
+        // Catch any errors in retrieving image URL, as some shows do not have an available image
         try {
             image = show.show.image.medium;
         } catch(err) {
@@ -88,13 +89,8 @@ async function searchForShowAndDisplay() {
     populateShows(shows);
 }
 
-$searchForm.on("submit", async function (evt) {
-    evt.preventDefault();
-    await searchForShowAndDisplay();
-});
 
-
-/** Given a show ID, get the show from API and return (promise) array of episodes:
+/** Given a show ID, get the show from API and return (promise) array of episodes with the info:
  *  { id, name, season, number }
  */
 async function getEpisodesOfShow(showId) {
@@ -117,7 +113,9 @@ async function getEpisodesOfShow(showId) {
 }
 
 
-/** Given an array of episodes info, add this info to the DOM (as a list, with one episode per list item). */
+/** Given an array of episodes info, add this info to the episodes list in the DOM (with one episode per list item) and reveal the episodes section on the page.
+ * The previous episodes list will be emptied prior to addition of the new episodes.
+*/
 function populateEpisodes(episodes) {
     $episodesList.empty();
 
@@ -129,7 +127,14 @@ function populateEpisodes(episodes) {
     $episodesArea.css("display", "block");
 }
 
+/** Upon submitting the search form, retrieve shows from the API and display them on the page. */
+$searchForm.on("submit", async function (evt) {
+    evt.preventDefault();
+    await searchForShowAndDisplay();
+});
 
+
+/** Upon clicking the 'get episodes' button for a show, retrieve episode info for that show and display the episodes on the page. */
 $showsList.on("click", ".Show-getEpisodes", async function() {
     const $showDiv = $(this).closest("div.Show");
     const showId = $showDiv.data("show-id");
