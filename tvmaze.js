@@ -1,3 +1,7 @@
+// Ioana Alex Mititean
+// 11/18/22
+// 14.3.14: AJAX and API Exercise (TV Maze)
+
 "use strict";
 
 const $showsList = $("#showsList");
