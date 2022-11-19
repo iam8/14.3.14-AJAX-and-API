@@ -32,7 +32,6 @@ async function getShowsByTerm(searchTerm) {
         try {
             image = show.show.image.medium;
         } catch(err) {
-            console.log(err);
             image = "https://tinyurl.com/tv-missing";
         }
 
@@ -60,7 +59,7 @@ function populateShows(shows) {
                 <div class="media">
                 <img
                     src=${show.image}
-                    alt="Show image"
+                    alt="Poster image for show '${show.name}'"
                     class="w-25 me-3">
                 <div class="media-body">
                     <h5 class="text-primary">${show.name}</h5>
