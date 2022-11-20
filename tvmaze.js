@@ -57,7 +57,7 @@ function populateShows(shows) {
     $showsList.empty();
 
     if (!shows.length) {
-        $showsList.append($("<h3>", {text: "No results"}));
+        $showsList.append($("<h3>", {id: "no-shows-msg", text: "No results"}));
         return;
     }
 
@@ -125,6 +125,11 @@ async function getEpisodesOfShow(showId) {
 */
 function populateEpisodes(episodes) {
     $episodesList.empty();
+    $("#no-eps-msg").remove();
+
+    if (!episodes.length) {
+        $episodesArea.append($("<h5>", {id: "no-eps-msg", text: "No results"}));
+    }
 
     for (let ep of episodes) {
         $episodesList.append($("<li>",
