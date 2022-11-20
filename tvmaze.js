@@ -50,11 +50,16 @@ async function getShowsByTerm(searchTerm) {
 }
 
 
-/** Given a list of shows, create markup for each and add to the DOM. */
+/** Given a list of shows, create markup for each and add to the DOM.
+ * If an empty array of shows is passed in, append a 'no results' message to the DOM.
+*/
 function populateShows(shows) {
     $showsList.empty();
 
-    // TODO: put an alert or a different message in DOM that no search results were found
+    if (!shows.length) {
+        $showsList.append($("<h3>", {text: "No results"}));
+        return;
+    }
 
     for (let show of shows) {
         const $show = $(
